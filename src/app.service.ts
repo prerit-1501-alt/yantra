@@ -7,6 +7,7 @@ import { lastValueFrom } from 'rxjs';
 
 let bspHash = '';
 let shoonyaHash = '';
+let samyamaHash = '';
 @Injectable()
 export class AppService {
   // private readonly logger = new Logger(TasksService.name);
@@ -20,6 +21,7 @@ export class AppService {
     const url =
       'https://api.ishafoundation.org/scheduleApi/api.php?option=com_program&v=2&format=json&task=filter&count=12&startrec=0&category=7&none=';
     const { data } = await lastValueFrom(new HttpService().get(url));
+    console.log(data, 'handleBsp response');
     const newResponse = JSON.stringify(data);
     if (bspHash !== newResponse) {
       bspHash = newResponse;
@@ -32,10 +34,24 @@ export class AppService {
     const url =
       'https://api.ishafoundation.org/scheduleApi/api.php?option=com_program&v=2&format=json&task=filter&count=12&startrec=0&category=13&none=';
     const { data } = await lastValueFrom(new HttpService().get(url));
+    console.log(data, 'handleShoonya response');
     const newResponse = JSON.stringify(data);
     if (shoonyaHash !== newResponse) {
       shoonyaHash = newResponse;
       this.sendMail('shoonya');
+    }
+  }
+
+  async handleSamayama() {
+    console.log('hitting handleShoonya');
+    const url =
+      'https://api.ishafoundation.org/scheduleApi/api.php?option=com_program&v=2&format=json&task=filter&count=12&startrec=0&category=12&none';
+    const { data } = await lastValueFrom(new HttpService().get(url));
+    console.log(data, 'handleSamayama response');
+    const newResponse = JSON.stringify(data);
+    if (samyamaHash !== newResponse) {
+      samyamaHash = newResponse;
+      this.sendMail('samayama');
     }
   }
 
