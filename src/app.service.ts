@@ -83,5 +83,6 @@ export class AppService {
     // this.sendMail();
     this.handleBsp();
     this.handleShoonya();
+    this.handleSamayama();
   }
 }
